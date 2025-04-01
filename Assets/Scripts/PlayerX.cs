@@ -3,28 +3,43 @@ using UnityEngine;
 
 public class PlayerX : MonoBehaviour
 {
-    [SerializeField] float speed;
-    [SerializeField] float jumpForce;
-    private Rigidbody2D playerRb;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        playerRb = GetComponent<Rigidbody2D>();
-    }
+    public CharacterController2D controller;
+    [SerializeField] float runSpeed = 40f;
+    [SerializeField] Animator animator;
+    float horizontalInput = 0f;
+    bool jump = false;
+    bool crouch = false;
 
+    
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        transform.position += Vector3.right * horizontalInput * speed * Time.deltaTime;
-        if (horizontalInput != 0)
-        {
-            Vector3 scale = transform.localScale;
-            scale.x = horizontalInput > 0 ? 1 : -1;
-            transform.localScale = scale;
+        horizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
+        if(Input.GetButtonDown("Jump")){
+            jump = true;
+            animator.SetBool("Jump", true);
         }
-        if(Input.GetKeyDown(KeyCode.Space)){
-            playerRb.AddForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
+        if(Input.GetButtonDown("Crouch")){
+            crouch = true;
         }
+        // Crouch button released
+        else if(Input.GetButtonUp("Crouch")){
+            crouch = false;
+        }
+    }
+
+    public void OnLanding(){
+        animator.SetBool("Jump", false);
+    }
+
+    public void OnCrouching(bool isCrouching){
+        animator.SetBool("Crouch", isCrouching);
+    }
+
+    void FixedUpdate(){
+        controller.Move(horizontalInput * Time.fixedDeltaTime,crouch,jump);
+        // Stop the Jump after Jumping
+        jump = false;
+        // Crouch only when crouch button is pressed
     }
 }
