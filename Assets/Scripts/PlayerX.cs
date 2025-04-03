@@ -15,6 +15,7 @@ public class PlayerX : MonoBehaviour
     void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
+        animator.SetFloat("Speed",Mathf.Abs(horizontalInput));
         if(Input.GetButtonDown("Jump")){
             jump = true;
             animator.SetBool("Jump", true);
@@ -26,9 +27,13 @@ public class PlayerX : MonoBehaviour
         else if(Input.GetButtonUp("Crouch")){
             crouch = false;
         }
+        if (Input.GetButtonDown("Shoot")){
+            animator.SetTrigger("Shot");
+        }
     }
 
     public void OnLanding(){
+        Debug.Log("Landed!");
         animator.SetBool("Jump", false);
     }
 
@@ -41,5 +46,12 @@ public class PlayerX : MonoBehaviour
         // Stop the Jump after Jumping
         jump = false;
         // Crouch only when crouch button is pressed
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Lava")){
+            Debug.Log("DEAD");
+        }
     }
 }
