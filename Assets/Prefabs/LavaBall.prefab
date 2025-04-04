@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 4687834557277658797}
   - component: {fileID: 2833139752749728118}
   - component: {fileID: 311255191067282019}
-  - component: {fileID: 6331970018921034387}
   - component: {fileID: 1155836838554032075}
+  - component: {fileID: 8269000518221545238}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: LavaBall
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,13 +29,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4355171458564967609}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5429061, y: -0.20666516, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &4687834557277658797
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2b02c5e3379f6444f8166205160b9e09, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.052272934, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -140,22 +140,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &6331970018921034387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4355171458564967609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef9848a2e7a52f44fbf333c10393e02b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 2833139752749728118}
-  bulletDamage: 20
-  speed: 20
-  rb: {fileID: 311255191067282019}
 --- !u!58 &1155836838554032075
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -192,3 +176,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.015, y: -0.005719565}
   m_Radius: 0.036817238
+--- !u!114 &8269000518221545238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4355171458564967609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da8ddcde26e9337448d764ff0fe42335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2833139752749728118}
+  bulletDamage: 20
+  speed: 3
+  frequency: 1
+  rb: {fileID: 311255191067282019}

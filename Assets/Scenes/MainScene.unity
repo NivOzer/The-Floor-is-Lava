@@ -119,6 +119,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &43212577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 43212578}
+  m_Layer: 0
+  m_Name: ShootingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &43212578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43212577}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.152, y: 0.028, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1483909703}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &210514725
 GameObject:
   m_ObjectHideFlags: 0
@@ -22983,8 +23014,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -35}
-  m_SizeDelta: {x: 200, y: 20}
+  m_AnchoredPosition: {x: 160.14465, y: -35}
+  m_SizeDelta: {x: 270.2894, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1445042037
 MonoBehaviour:
@@ -23253,7 +23284,8 @@ Transform:
   m_LocalPosition: {x: 9, y: -2.2, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 43212578}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!50 &1483909704
@@ -23343,6 +23375,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   health: 100
+  animator: {fileID: 1483909701}
+  shootingPoint: {fileID: 43212578}
+  lavaBallPrefab: {fileID: 4355171458564967609, guid: 8ca329834accb6044ba10b9bd4d92901, type: 3}
+  specialAttackCooldown: 4
 --- !u!1001 &1490946995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23353,7 +23389,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5008534755244437952, guid: 45075b6f428ffe04e9c20aef94eefdd0, type: 3}
       propertyPath: m_Name
-      value: Red Idle
+      value: Slime
       objectReference: {fileID: 0}
     - target: {fileID: 5008534755244437955, guid: 45075b6f428ffe04e9c20aef94eefdd0, type: 3}
       propertyPath: m_LocalScale.x

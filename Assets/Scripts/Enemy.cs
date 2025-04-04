@@ -27,4 +27,8 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public virtual void SpecialAttack(){
+        
+    }
+
 }
