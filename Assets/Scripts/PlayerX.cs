@@ -9,8 +9,8 @@ public class PlayerX : MonoBehaviour
     float horizontalInput = 0f;
     bool jump = false;
     bool crouch = false;
+    public Weapon weapon;
 
-    
     // Update is called once per frame
     void Update()
     {
@@ -51,7 +51,8 @@ public class PlayerX : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Lava")){
-            Debug.Log("DEAD");
+            Debug.Log("Gaining Lava");
+            weapon.gainLava();
         }
     }
 }
