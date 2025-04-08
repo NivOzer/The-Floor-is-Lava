@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -29,6 +30,6 @@ public class Weapon : MonoBehaviour
 
     public void gainLava(){
         currentLava += lavaGainPerSecond;
-        lavaBar.setLava(currentLava);
+        lavaBar.setLava(Mathf.Min(currentLava,maxLava));
     }
 }

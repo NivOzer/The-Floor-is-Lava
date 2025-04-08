@@ -8,7 +8,7 @@ public class SkeletonX : Enemy
     protected override void Update()
     {
         jumpTimer += Time.deltaTime;
-        if(jumpTimer >=2f){
+        if(jumpTimer >=1f){
             Jump();
             jumpTimer = 0;
         }

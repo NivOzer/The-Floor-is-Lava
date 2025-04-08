@@ -10,8 +10,15 @@ public class PlayerX : MonoBehaviour
     bool jump = false;
     bool crouch = false;
     public Weapon weapon;
+    public HealthBar healthBar;
+    private int health = 100;
+    private int dmgFromBulletToPlayer = 10;
 
-    // Update is called once per frame
+    void Start()
+    {
+          healthBar.setMaxHealth(health);
+    }
+
     void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
@@ -54,5 +61,20 @@ public class PlayerX : MonoBehaviour
             Debug.Log("Gaining Lava");
             weapon.gainLava();
         }
+        else if(collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Enemy")){
+            takeDamage(dmgFromBulletToPlayer);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy")){
+            takeDamage(dmgFromBulletToPlayer);
+        }
+    }
+
+    void takeDamage(int dmg){
+        health -= dmg;
+        healthBar.setHealth(health);
     }
 }
