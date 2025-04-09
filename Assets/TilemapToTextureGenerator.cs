@@ -24,7 +24,7 @@ public class TilemapToTextureGenerator : MonoBehaviour
 
     private void Start()
     {
-        GenerateTilePresenceTexture();
+        // GenerateTilePresenceTexture();
     }
 
     /// <summary>
