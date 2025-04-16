@@ -1,0 +1,9 @@
+<linker>
+  <assembly fullname="UnityEngine">
+    <type fullname="UnityEngine.BoxCollider2D" preserve="all" />
+    <type fullname="UnityEngine.CircleCollider2D" preserve="all" />
+    <type fullname="UnityEngine.Collider2D" preserve="all" />
+    <type fullname="UnityEngine.Rigidbody2D" preserve="all" />
+    <type fullname="UnityEngine.Physics2D" preserve="all" />
+  </assembly>
+</linker>

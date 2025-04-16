@@ -18,7 +18,7 @@ public class SkeletonX : Enemy
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.AddForce(Vector2.up * 300f);
+            rb.AddForce(Vector2.up * 150f);
         }
     }
 

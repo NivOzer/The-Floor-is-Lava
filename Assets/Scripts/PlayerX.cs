@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerX : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerX : MonoBehaviour
     float horizontalInput = 0f;
     bool jump = false;
     bool crouch = false;
+    bool isAlive = true;
     public Weapon weapon;
     public HealthBar healthBar;
     private int health = 100;
@@ -36,6 +38,10 @@ public class PlayerX : MonoBehaviour
         }
         if (Input.GetButtonDown("Shoot")){
             animator.SetTrigger("Shot");
+        }
+
+        if(!isAlive){
+            OnDeath();
         }
     }
 
@@ -74,7 +80,18 @@ public class PlayerX : MonoBehaviour
     }
 
     void takeDamage(int dmg){
-        health -= dmg;
-        healthBar.setHealth(health);
+        if (isAlive){
+            animator.SetTrigger("BeenHit");
+            health -= dmg;
+            healthBar.setHealth(health);
+            if (health <=0) isAlive = false;
+        }
+    }
+
+    void OnDeath()
+    {
+        animator.SetBool("isAlive", isAlive);
+        isAlive = true;
+        // SceneManager.LoadScene(0);
     }
 }
