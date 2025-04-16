@@ -166,7 +166,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1648628601543085696}
   runSpeed: 40
+  playerRb: {fileID: 788975888086062832}
   animator: {fileID: 8790094682597954427}
+  gameManager: {fileID: 0}
   weapon: {fileID: 7023163731716882442}
   healthBar: {fileID: 0}
 --- !u!114 &1648628601543085696

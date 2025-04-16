@@ -8,6 +8,7 @@ public class PlayerX : MonoBehaviour
     [SerializeField] float runSpeed = 40f;
     [SerializeField] Rigidbody2D playerRb;
     [SerializeField] Animator animator;
+    [SerializeField] GameManager gameManager;
     float horizontalInput = 0f;
     bool jump = false;
     bool crouch = false;
@@ -16,7 +17,7 @@ public class PlayerX : MonoBehaviour
     public HealthBar healthBar;
     private int health = 100;
     private int dmgFromBulletToPlayer = 10;
-
+    
     void Start()
     {
           healthBar.setMaxHealth(health);
@@ -24,6 +25,9 @@ public class PlayerX : MonoBehaviour
 
     void Update()
     {
+        PlayerMovement();
+    }
+    void PlayerMovement(){
         horizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
         animator.SetFloat("Speed",Mathf.Abs(horizontalInput));
         if(Input.GetButtonDown("Jump")){
@@ -45,7 +49,7 @@ public class PlayerX : MonoBehaviour
             OnDeath();
         }
     }
-
+    
     public void OnLanding(){
         Debug.Log("Landed!");
         animator.SetBool("Jump", false);
@@ -62,6 +66,7 @@ public class PlayerX : MonoBehaviour
         // Crouch only when crouch button is pressed
     }
 
+    #region Triggers and Colliders
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Enemy")){
@@ -78,12 +83,18 @@ public class PlayerX : MonoBehaviour
         }
     }
 
+    void OTriggerExit2D(Collider2D collision)
+    {
+        playerRb.mass = 1f;
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy")){
             takeDamage(dmgFromBulletToPlayer);
         }
-    }
+    } 
+    #endregion
 
     void takeDamage(int dmg){
         if (isAlive){
@@ -98,6 +109,6 @@ public class PlayerX : MonoBehaviour
     {
         animator.SetBool("isAlive", isAlive);
         isAlive = true;
-        // SceneManager.LoadScene(0);
+        StartCoroutine(gameManager.EndGame());
     }
 }
