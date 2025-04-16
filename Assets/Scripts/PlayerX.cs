@@ -6,6 +6,7 @@ public class PlayerX : MonoBehaviour
 {
     public CharacterController2D controller;
     [SerializeField] float runSpeed = 40f;
+    [SerializeField] Rigidbody2D playerRb;
     [SerializeField] Animator animator;
     float horizontalInput = 0f;
     bool jump = false;
@@ -63,12 +64,17 @@ public class PlayerX : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Enemy")){
+            takeDamage(dmgFromBulletToPlayer);
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
         if (collision.gameObject.CompareTag("Lava")){
             Debug.Log("Gaining Lava");
             weapon.gainLava();
-        }
-        else if(collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Enemy")){
-            takeDamage(dmgFromBulletToPlayer);
+            playerRb.mass = 1.2f;
         }
     }
 

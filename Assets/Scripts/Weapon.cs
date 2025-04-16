@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] Transform shootingPoint;
     [SerializeField] GameObject bulletPrefab;
     public LavaBar lavaBar;
+    float lavaGainTimer = 0f;
     public int maxLava = 100;
     public int currentLava = 0;
     int lavaCostPerShot = 10;
@@ -29,7 +30,11 @@ public class Weapon : MonoBehaviour
     }
 
     public void gainLava(){
-        currentLava += lavaGainPerSecond;
-        lavaBar.setLava(Mathf.Min(currentLava,maxLava));
+        lavaGainTimer += Time.deltaTime;
+        if (lavaGainTimer > 1f){
+            currentLava += lavaGainPerSecond;
+            lavaBar.setLava(Mathf.Min(currentLava,maxLava));
+            lavaGainTimer = 0f;
+        }
     }
 }
