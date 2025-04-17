@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     }
 
     protected void Die(){
+        FindFirstObjectByType<GameManager>().EnemyDied();
         Destroy(gameObject);
     }
 

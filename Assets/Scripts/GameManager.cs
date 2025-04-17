@@ -7,23 +7,42 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] Button playButton;
+    [SerializeField] LevelGenerator levelGenerator;
     [SerializeField] GameObject mainMenu;
     [SerializeField] Animator mainMenuAnimator;
     [SerializeField] TextMeshProUGUI YouDiedText;
+    public int currentLevel = 1;
+    public int remainingEnemies;
     void Start()
     {
         Time.timeScale = 0;
+        playButton.onClick.AddListener(StartGame);
     }
 
     void Update()
     {
-        playButton.onClick.AddListener(StartGame);
+
     }
 
     void StartGame(){
         Time.timeScale = 1;
         mainMenuAnimator.SetTrigger("startGame");
         foreach (Transform child in mainMenu.transform) { child.gameObject.SetActive(false); }
+        levelGenerator.LoadLevel(currentLevel);
+        Debug.Log(remainingEnemies);
+    }
+
+    public void EnemyDied(){
+        remainingEnemies--;
+        if (remainingEnemies <= 0){
+            Debug.Log($"Level{currentLevel} cleared");
+            LoadNextLevel();
+        }
+    }
+
+    public void LoadNextLevel(){
+        currentLevel++;
+        levelGenerator.LoadLevel(currentLevel);
     }
 
     public IEnumerator EndGame(){

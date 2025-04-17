@@ -7,8 +7,14 @@ public class LevelGenerator : MonoBehaviour
     public ColorToPrefab[] colorMappings;
     public int offsetX = -49;
     public int offsetY = -21;
-    void Start()
+    public void LoadLevel(int levelIndex)
     {
+        map = Resources.Load<Texture2D>($"Levels Textures/Level{levelIndex}");
+        if (map == null)
+        {
+            Debug.LogWarning($"Couldn't load Level Texture: Level{levelIndex}");
+            return;
+        }
         GenerateLevel();       
     }
     void GenerateLevel(){
@@ -27,7 +33,10 @@ public class LevelGenerator : MonoBehaviour
         foreach (ColorToPrefab colorMapping in colorMappings){
             if(colorMapping.color.Equals(pixelColor)){
                 Vector2 position = new Vector2(x +offsetX, y + offsetY);
-                Instantiate(colorMapping.prefab,position,colorMapping.prefab.transform.rotation,transform);
+                GameObject obj = Instantiate(colorMapping.prefab,position,colorMapping.prefab.transform.rotation,transform);
+                if (obj.CompareTag("Enemy")){
+                    FindFirstObjectByType<GameManager>().remainingEnemies++;
+                }
             }
         }
 
