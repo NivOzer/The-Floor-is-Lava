@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using Unity.Collections;
 using UnityEngine;
 
@@ -7,8 +9,10 @@ public class LevelGenerator : MonoBehaviour
     public ColorToPrefab[] colorMappings;
     public int offsetX = -49;
     public int offsetY = -21;
+    [SerializeField] TextMeshProUGUI levelText;
     public void LoadLevel(int levelIndex)
     {
+        DisplayLevelText(levelIndex);
         map = Resources.Load<Texture2D>($"Levels Textures/Level{levelIndex}");
         if (map == null)
         {
@@ -17,6 +21,18 @@ public class LevelGenerator : MonoBehaviour
         }
         GenerateLevel();       
     }
+
+    void DisplayLevelText(int level){
+        levelText.text = "Level "+level;
+        levelText.gameObject.SetActive(true);
+        StartCoroutine(OnLevelTextFadeComplete());
+    }
+    IEnumerator OnLevelTextFadeComplete()
+    {
+        yield return new WaitForSeconds(2f);
+        levelText.gameObject.SetActive(false);
+    }
+
     void GenerateLevel(){
         for(int x=0; x < map.width; x++){
             for(int y=0; y < map.height; y++){

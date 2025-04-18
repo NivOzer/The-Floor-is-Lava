@@ -4,19 +4,35 @@ using UnityEngine.SceneManagement;
 
 public class PlayerX : MonoBehaviour
 {
-    public CharacterController2D controller;
-    [SerializeField] float runSpeed = 40f;
-    [SerializeField] Rigidbody2D playerRb;
-    [SerializeField] Animator animator;
-    [SerializeField] GameManager gameManager;
-    float horizontalInput = 0f;
-    bool jump = false;
-    bool crouch = false;
-    bool isAlive = true;
-    public Weapon weapon;
-    public HealthBar healthBar;
-    private int health = 100;
-    private int dmgFromBulletToPlayer = 10;
+    [Header("Player Controller")]
+        public CharacterController2D controller;
+        [SerializeField] float runSpeed = 40f;
+        [SerializeField] Rigidbody2D playerRb;
+        float horizontalInput = 0f;
+        bool jump = false;
+        bool crouch = false;
+
+    [Header("Audio")]
+        [SerializeField] AudioSource  playerAudioSource;
+        [SerializeField] AudioClip jumpAudio;
+        [SerializeField] AudioClip insideLavaSound;
+        [SerializeField] AudioClip deathSound;
+        [SerializeField] AudioClip takeDamageSound;
+
+    [Header("Animations")]
+        [SerializeField] Animator animator;
+
+    [Header("Gameplay")]
+        [SerializeField] GameManager gameManager;
+        bool isAlive = true;
+        bool isInLava = false;
+        public Weapon weapon;
+
+    [Header("Health")]
+        public HealthBar healthBar;
+        [SerializeField] int health = 100;
+        [SerializeField] int dmgFromBulletToPlayer = 10;
+
     
     void Start()
     {
@@ -27,10 +43,12 @@ public class PlayerX : MonoBehaviour
     {
         PlayerMovement();
     }
+
     void PlayerMovement(){
         horizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
         animator.SetFloat("Speed",Mathf.Abs(horizontalInput));
         if(Input.GetButtonDown("Jump")){
+            playerAudioSource.PlayOneShot(jumpAudio,isInLava ? 0.1f : 0.4f);
             jump = true;
             animator.SetBool("Jump", true);
         }
@@ -49,7 +67,7 @@ public class PlayerX : MonoBehaviour
             OnDeath();
         }
     }
-    
+
     public void OnLanding(){
         Debug.Log("Landed!");
         animator.SetBool("Jump", false);
@@ -64,6 +82,10 @@ public class PlayerX : MonoBehaviour
         // Stop the Jump after Jumping
         jump = false;
         // Crouch only when crouch button is pressed
+        if(isInLava){
+            Debug.Log("Gaining Lava");
+            weapon.gainLava();
+        }
     }
 
     #region Triggers and Colliders
@@ -77,15 +99,26 @@ public class PlayerX : MonoBehaviour
     void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Lava")){
-            Debug.Log("Gaining Lava");
-            weapon.gainLava();
-            playerRb.mass = 1.2f;
+            if(!isInLava){
+                isInLava = true;
+                playerAudioSource.clip = insideLavaSound;
+                playerAudioSource.loop = true;
+                playerAudioSource.Play();
+            }
+            playerRb.gravityScale = 0.3f;
+            controller.setJumpForce(100f);
         }
     }
 
-    void OTriggerExit2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D collision)
     {
-        playerRb.mass = 1f;
+        if (collision.gameObject.CompareTag("Lava")){
+            isInLava = false;
+            playerAudioSource.Stop();
+            playerAudioSource.loop = false;
+            playerRb.gravityScale = 3f;
+            controller.setJumpForce(400f);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -98,15 +131,18 @@ public class PlayerX : MonoBehaviour
 
     void takeDamage(int dmg){
         if (isAlive){
+            playerAudioSource.PlayOneShot(takeDamageSound);
             animator.SetTrigger("BeenHit");
             health -= dmg;
             healthBar.setHealth(health);
             if (health <=0) isAlive = false;
         }
+        else OnDeath();
     }
 
     void OnDeath()
     {
+        playerAudioSource.PlayOneShot(deathSound);
         animator.SetBool("isAlive", isAlive);
         isAlive = true;
         StartCoroutine(gameManager.EndGame());

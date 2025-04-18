@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] AudioSource gameManagerAudioSource;
+    [SerializeField] AudioClip levelClearedAudio;
     [SerializeField] Button playButton;
     [SerializeField] LevelGenerator levelGenerator;
     [SerializeField] GameObject mainMenu;
@@ -41,6 +43,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void LoadNextLevel(){
+        gameManagerAudioSource.PlayOneShot(levelClearedAudio);
         currentLevel++;
         levelGenerator.LoadLevel(currentLevel);
     }

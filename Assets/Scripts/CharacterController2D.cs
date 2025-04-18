@@ -132,6 +132,9 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
+	public void setJumpForce(float newJumpForce){
+		m_JumpForce = newJumpForce;
+	}
 
 	private void Flip()
 	{
