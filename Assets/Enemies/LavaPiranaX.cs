@@ -14,6 +14,7 @@ public class LavaPiranaX : Enemy
     {
         if (collision.gameObject.CompareTag("Player")){
             animator.SetTrigger("Bite");
+            TakeDamage(20);
         }
         else if (collision.gameObject.CompareTag("Fortress")){
             FlipSide();
