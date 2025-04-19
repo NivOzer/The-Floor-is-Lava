@@ -29,7 +29,7 @@ public class LevelGenerator : MonoBehaviour
     }
     IEnumerator OnLevelTextFadeComplete()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         levelText.gameObject.SetActive(false);
     }
 

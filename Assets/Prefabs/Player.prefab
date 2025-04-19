@@ -168,12 +168,17 @@ MonoBehaviour:
   controller: {fileID: 1648628601543085696}
   runSpeed: 40
   playerRb: {fileID: 788975888086062832}
-  animator: {fileID: 8790094682597954427}
-  gameManager: {fileID: 0}
   playerAudioSource: {fileID: 5318782383734332687}
   jumpAudio: {fileID: 8300000, guid: 3f80564edf69c7b438b6dad12b530a05, type: 3}
+  insideLavaSound: {fileID: 8300000, guid: 3d86af65b8ddbb1458f31bd1116536cf, type: 3}
+  deathSound: {fileID: 8300000, guid: 69852d6ff4126ef4a8d31334077697ee, type: 3}
+  takeDamageSound: {fileID: 8300000, guid: 35d8a4ca28d384444b4f20adc9bd2582, type: 3}
+  animator: {fileID: 8790094682597954427}
+  gameManager: {fileID: 0}
   weapon: {fileID: 7023163731716882442}
   healthBar: {fileID: 0}
+  health: 100
+  dmgFromBulletToPlayer: 10
 --- !u!114 &1648628601543085696
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -32522,21 +32522,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 410128740}
     - target: {fileID: 6544566615479675665, guid: 60ae70b9f07444c47910533f91e42a02, type: 3}
-      propertyPath: deathSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 69852d6ff4126ef4a8d31334077697ee, type: 3}
-    - target: {fileID: 6544566615479675665, guid: 60ae70b9f07444c47910533f91e42a02, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1758567946}
-    - target: {fileID: 6544566615479675665, guid: 60ae70b9f07444c47910533f91e42a02, type: 3}
-      propertyPath: insideLavaSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 3d86af65b8ddbb1458f31bd1116536cf, type: 3}
-    - target: {fileID: 6544566615479675665, guid: 60ae70b9f07444c47910533f91e42a02, type: 3}
-      propertyPath: takeDamageSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 35d8a4ca28d384444b4f20adc9bd2582, type: 3}
     - target: {fileID: 7023163731716882442, guid: 60ae70b9f07444c47910533f91e42a02, type: 3}
       propertyPath: lavaBar
       value: 

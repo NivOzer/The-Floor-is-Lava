@@ -94,30 +94,24 @@ public class PlayerX : MonoBehaviour
         if(collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Enemy")){
             takeDamage(dmgFromBulletToPlayer);
         }
+        if (collision.gameObject.CompareTag("Lava")){
+            EnterLava();
+        }
     }
 
     void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Lava")){
             if(!isInLava){
-                isInLava = true;
-                playerAudioSource.clip = insideLavaSound;
-                playerAudioSource.loop = true;
-                playerAudioSource.Play();
+                EnterLava();
             }
-            playerRb.gravityScale = 0.3f;
-            controller.setJumpForce(100f);
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Lava")){
-            isInLava = false;
-            playerAudioSource.Stop();
-            playerAudioSource.loop = false;
-            playerRb.gravityScale = 3f;
-            controller.setJumpForce(400f);
+            ExitLava();
         }
     }
 
@@ -127,6 +121,27 @@ public class PlayerX : MonoBehaviour
             takeDamage(dmgFromBulletToPlayer);
         }
     } 
+    #endregion
+
+    #region Lava Logic
+        void EnterLava(){
+            isInLava = true;
+            animator.SetBool("inLava", true);
+            playerAudioSource.clip = insideLavaSound;
+            playerAudioSource.loop = true;
+            playerAudioSource.Play();
+            playerRb.gravityScale = 0.3f;
+            controller.setJumpForce(100f);
+        }
+        void ExitLava(){
+            isInLava = false;
+            animator.SetBool("inLava", false);
+            playerAudioSource.Stop();
+            playerAudioSource.loop = false;
+            playerRb.gravityScale = 3f;
+            controller.setJumpForce(400f);
+        }
+
     #endregion
 
     void takeDamage(int dmg){
