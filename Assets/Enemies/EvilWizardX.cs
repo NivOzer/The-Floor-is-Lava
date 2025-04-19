@@ -7,7 +7,7 @@ public class EvilWizardX : Enemy
     [SerializeField] GameObject lavaBallPrefab;
     [SerializeField] private float specialAttackCooldown = 4f;
     private float specialAttackTimer = 0f;
-    int dmgFromPlayer;
+    int dmgFromPlayer = 20;
 
     void Update()
     {
