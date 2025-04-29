@@ -14,12 +14,12 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        rb.linearVelocity = transform.right * 0;
+        rb.linearVelocity = transform.right * 0; // Stops on impact
         animator.SetTrigger("Destroy");
-        Enemy enemy = collision.GetComponent<Enemy>();
-        if(enemy != null){
-            enemy.TakeDamage(bulletDamage);
+        if (collision.TryGetComponent<IDamagable>(out var damagable)){
+            damagable.TakeDamage(bulletDamage);
         }
-        Destroy(gameObject,0.333f);
+        Destroy(gameObject, 0.333f);
     }
+
 }
